@@ -1,10 +1,10 @@
 package com.example.jobspot.ui.fragments
-
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.map
 import com.example.jobspot.data.api.KtorApi
 import com.example.jobspot.databinding.FragmentJobsBinding
 import com.example.jobspot.ui.MainViewModel
 import com.example.jobspot.ui.adapters.JobsAdapter
-import com.example.jobspot.ui.models.States
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 
 class JobsFragment : Fragment() {
@@ -43,23 +42,37 @@ class JobsFragment : Fragment() {
             Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
         }
 
-
-        viewModel.jobs.onEach { job ->
-            when (job) {
-                is States.Loaded -> {
-                    binding.progressBar.visibility = View.GONE
-                    val adapter = JobsAdapter(job.jobs, { item ->
-                        val action = JobsFragmentDirections.actionJobsFragmentToJobDetailsFragment(KtorApi.json.encodeToString(item))
-                        findNavController().navigate(action)
-                    }, { item ->
-                        viewModel.saveJob(item)
-                    })
-                    binding.jobsRecyclerView.adapter = adapter
-                }
-                States.Loading -> binding.progressBar.visibility = View.VISIBLE
+        val pagingAdapter = JobsAdapter(
+            { item ->
+                val action = JobsFragmentDirections.actionJobsFragmentToJobDetailsFragment(KtorApi.json.encodeToString(item))
+                findNavController().navigate(action)
+            }, { item ->
+                viewModel.saveJob(item)
             }
+        )
+        binding.jobsRecyclerView.adapter = pagingAdapter
 
+// Activities can use lifecycleScope directly; fragments use
+// viewLifecycleOwner.lifecycleScope.
+//        lifecycleScope.launch {
+//            viewModel.flow.collectLatest { pagingData ->
+//                pagingAdapter.submitData(pagingData)
+//            }
+//        }
+
+        viewModel.pagedJobs.onEach {
+            pagingAdapter.submitData(it)
         }.launchIn(lifecycleScope)
+//        viewModel.jobs.onEach { job ->
+//            when (job) {
+//                is States.Loaded -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    pagingAdapter.submitData(job.jobs)
+//                }
+//                States.Loading -> binding.progressBar.visibility = View.VISIBLE
+//            }
+//
+//        }.launchIn(lifecycleScope)
 
         return binding.root
     }

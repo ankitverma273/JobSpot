@@ -3,19 +3,13 @@ package com.example.jobspot.ui
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.example.jobspot.data.api.KtorApi
 import com.example.jobspot.data.db.JobsDatabase
 import com.example.jobspot.ui.models.JobSurrogate
-import com.example.jobspot.ui.models.States
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -28,9 +22,15 @@ class MainViewModel(
     private val db = JobsDatabase.invoke(app)
     val jbDao = db.getJobDao()
 
-    val jobs = jbDao.readAllJobs().map {
-        States.Loaded(it)
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, initialValue = States.Loading)
+    val pagedJobs = Pager(
+        PagingConfig(5)
+    ){
+        jbDao.pagedReadAllJobs()
+    }.flow.cachedIn(viewModelScope)
+
+//    val jobs = jbDao.readAllJobs().map {
+//        States.Loaded(it)
+//    }.stateIn(viewModelScope, SharingStarted.Eagerly, initialValue = States.Loading)
     val bookMarkedJobs = jbDao.getAllBookmarkedJobs()
 
     init {

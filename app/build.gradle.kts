@@ -64,6 +64,7 @@ dependencies {
     ksp(libs.room.compiler)
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
+    implementation (libs.androidx.room.paging)
 
     //MVVM Dependencies
     implementation(libs.lifecycle.viewmodel.ktx)
