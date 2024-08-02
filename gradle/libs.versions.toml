@@ -1,0 +1,55 @@
+[versions]
+agp = "8.5.1"
+kotlin = "1.9.24"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.1"
+constraintlayout = "2.1.4"
+roomVersionRef = "2.6.1"
+lifecycleVersionRef = "2.8.4"
+navigationVersionRef = "2.7.7"
+pagingVersionRef = "3.3.1"
+coilRef = "2.7.0"
+
+ktorVersionRef = "2.3.12"
+ktorClientLogging = "2.3.3"
+
+kotlinCoroutinesVersionRef = "1.7.3"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersionRef" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersionRef" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersionRef" }
+
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coilRef"}
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+room-database = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersionRef" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersionRef" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleVersionRef" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationVersionRef" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationVersionRef" }
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "pagingVersionRef" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorVersionRef" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorVersionRef" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktorVersionRef"}
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinCoroutinesVersionRef" }
+
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+

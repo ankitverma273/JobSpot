@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">JobSpot</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jobspot">JobSpot</string>
+    <string name="jobs">Jobs</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="application_developer">Application Developer</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="_12000_month">12000/Month</string>
+    <string name="_91_9999999999">+91 9999999999</string>
+    <string name="view">View</string>
+    <string name="apply">Apply</string>
+    <string name="recovery_and_collection_officer">Recovery and Collection Officer</string>
+    <string name="company_description">Company Description</string>
+    <string name="job_profile">Job Profile</string>
+    <string name="_194_applicants">194 Applicants</string>
+</resources>
